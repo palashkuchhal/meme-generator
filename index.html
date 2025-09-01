@@ -72,19 +72,22 @@
         });
 
         const data = await response.json();
-
+        
         // Clear container
         const container = document.getElementById("memesContainer");
         container.innerHTML = "";
+        
+        // Loop through response_body array and show images
+        if (data.response_body) {
+          data.response_body.forEach(item => {
+            if (item.data) {
+              const img = document.createElement("img");
+              img.src = item.data;
+              container.appendChild(img);
+            }
+          });
+        }
 
-        // Insert images (meme1, meme2, meme3)
-        ["meme1", "meme2", "meme3"].forEach(key => {
-          if (data[key]) {
-            const img = document.createElement("img");
-            img.src = data[key];
-            container.appendChild(img);
-          }
-        });
 
       } catch (err) {
         console.error("Error:", err);
