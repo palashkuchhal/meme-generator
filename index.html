@@ -77,16 +77,19 @@
         const container = document.getElementById("memesContainer");
         container.innerHTML = "";
         
-        // Loop through response_body array and show images
-        if (data.response_body) {
-          data.response_body.forEach(item => {
-            if (item.data) {
+        // Extract the first object inside response_body
+        if (data.response_body && data.response_body.length > 0) {
+          const memes = data.response_body[0];
+        
+          ["meme1", "meme2", "meme3"].forEach(key => {
+            if (memes[key]) {
               const img = document.createElement("img");
-              img.src = item.data;
+              img.src = memes[key];
               container.appendChild(img);
             }
           });
         }
+
 
 
       } catch (err) {
